@@ -111,10 +111,8 @@ const finalError = computed(() => {
       :src="processedMedia.src"
       class="h-auto max-w-full max-w-xs rounded-lg"
       alt="Media content"
-      autoplay
-      muted
-      loop
-      playsinline
+
+      autoplay loop muted playsinline
       @error="runtimeError = 'Video failed to load'"
     />
 
