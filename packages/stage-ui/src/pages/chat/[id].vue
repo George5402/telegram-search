@@ -40,6 +40,12 @@ const { list, containerProps, wrapperProps } = useVirtualList(
   },
 )
 
+// 临时禁用虚拟列表，直接渲染所有消息
+const shouldUseVirtualList = ref(false)
+const directMessages = computed(() =>
+  shouldUseVirtualList.value ? [] : chatMessages.value,
+)
+
 function handleClickOutside(event: MouseEvent) {
   if (isGlobalSearch.value && searchDialogRef.value) {
     const target = event.target as HTMLElement
@@ -62,14 +68,18 @@ onUnmounted(() => {
 const websocketStore = useWebsocketStore()
 
 const messageInput = ref('')
-const { y } = useScroll(containerProps.ref)
+const messagesContainer = ref<HTMLElement>()
+const { y } = useScroll(shouldUseVirtualList.value ? containerProps.ref : messagesContainer)
 const lastMessagePosition = ref(0)
 
 watch(() => chatMessages.value.length, () => {
-  lastMessagePosition.value = containerProps.ref.value?.scrollHeight ?? 0
+  const scrollElement = shouldUseVirtualList.value ? containerProps.ref.value : messagesContainer.value
+  lastMessagePosition.value = scrollElement?.scrollHeight ?? 0
 
   nextTick(() => {
-    y.value = (containerProps.ref.value?.scrollHeight ?? 0) - lastMessagePosition.value
+    if (scrollElement) {
+      y.value = scrollElement.scrollHeight - lastMessagePosition.value
+    }
     messageOffset.value += messageLimit.value
   })
 })
@@ -119,12 +129,21 @@ const isGlobalSearchOpen = ref(false)
 
     <!-- Messages Area -->
     <div
-      v-bind="containerProps"
+      v-bind="shouldUseVirtualList ? containerProps : {}"
+      ref="messagesContainer"
       class="flex-1 overflow-y-auto p-4 space-y-4"
     >
-      <div v-bind="wrapperProps">
+      <!-- 虚拟列表渲染 -->
+      <div v-if="shouldUseVirtualList" v-bind="wrapperProps">
         <div v-for="{ data, index } in list" :key="index">
           <MessageBubble :message="data" />
+        </div>
+      </div>
+
+      <!-- 直接渲染所有消息 -->
+      <div v-else class="space-y-4">
+        <div v-for="message in directMessages" :key="message.uuid">
+          <MessageBubble :message="message" />
         </div>
       </div>
     </div>
