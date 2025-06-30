@@ -33,7 +33,6 @@ export interface CoreMessage {
 }
 
 export type CoreMessageMediaTypes = 'photo' | 'sticker' | 'document' | 'webpage' | 'unknown'
-
 export interface CoreMessageMedia {
   type: CoreMessageMediaTypes
   messageUUID?: UUID
