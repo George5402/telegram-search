@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CoreMessage, CoreMessageMediaTypes } from '@tg-search/core/types'
 
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
   message: CoreMessage
@@ -20,13 +20,28 @@ const error = ref<string | null>(null)
 
 async function processMedia() {
   try {
+    // 重置状态
+    mediaSrc.value = null
+    mediaType.value = 'unknown'
+    error.value = null
+
     if (!isMedia.value)
       return
 
     for (const mediaItem of props.message.media!) {
       if (!mediaItem.base64)
         continue
-
+      // todo 处理 document 类型
+      const apiMedia = mediaItem.apiMedia as any
+      if (apiMedia && apiMedia.className === 'MessageMediaDocument') {
+        if (apiMedia.document) {
+          const isSticker = apiMedia.document.attributes.find((attr: any) => attr.className === 'DocumentAttributeSticker')
+          // video/webm
+          mediaSrc.value = `data:video/webm;base64,${mediaItem.base64}`
+          mediaType.value = isSticker ? 'sticker' : 'unknown' as CoreMessageMediaTypes
+          return
+        }
+      }
       const base64 = mediaItem.base64
       if (typeof base64 === 'string') {
         mediaSrc.value = base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`
@@ -44,9 +59,14 @@ async function processMedia() {
   }
 }
 
-onMounted(() => {
-  processMedia()
-})
+// 监听 message 变化，重新处理媒体
+watch(
+  () => props.message,
+  () => {
+    processMedia()
+  },
+  { immediate: true, deep: true },
+)
 </script>
 
 <template>
@@ -77,6 +97,13 @@ onMounted(() => {
       alt="Media content"
       @error="error = 'Image failed to load'"
     >
+    <video
+      v-if="mediaType === 'sticker'"
+      :src="mediaSrc"
+      class="h-auto max-w-full max-w-xs rounded-lg"
+      alt="Media content"
+      autoplay
+    />
 
     <!-- Others -->
     <div
