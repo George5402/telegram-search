@@ -26,31 +26,31 @@ const processedMedia = computed(() => {
     for (const mediaItem of props.message.media!) {
       if (!mediaItem.base64)
         continue
-
-      // todo 处理 document 类型
-      const apiMedia = mediaItem.apiMedia as any
-      if (apiMedia && apiMedia.className === 'MessageMediaDocument') {
-        if (apiMedia.document) {
-          const isSticker = apiMedia.document.attributes.find((attr: any) => attr.className === 'DocumentAttributeSticker')
-          // video/webm
+      const base64 = mediaItem.base64
+      if (typeof base64 === 'string') {
+        if (mediaItem.type === 'photo') {
           return {
-            src: `data:video/webm;base64,${mediaItem.base64}`,
-            type: (isSticker ? 'sticker' : 'unknown') as CoreMessageMediaTypes,
+            src: base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`,
+            type: mediaItem.type,
+            error: null,
+          }
+        }
+        else if (mediaItem.type === 'sticker') {
+          return {
+            // video/webm
+            src: base64.startsWith('data:') ? base64 : `data:video/webm;base64,${base64}`,
+            type: mediaItem.type,
+            error: null,
+          }
+        }
+        else {
+          return {
+            src: base64.startsWith('data:') ? base64 : `data:application/octet-stream;base64,${base64}`,
+            type: mediaItem.type,
             error: null,
           }
         }
       }
-      const base64 = mediaItem.base64
-      if (typeof base64 === 'string') {
-        return {
-          src: base64.startsWith('data:') ? base64 : `data:image/jpeg;base64,${base64}`,
-          type: mediaItem.type,
-          error: null,
-        }
-      }
-
-      // TODO: Process first valid media item only
-      break
     }
   }
   catch (err) {

@@ -32,7 +32,7 @@ export interface CoreMessage {
   deletedAt?: number
 }
 
-export type CoreMessageMediaTypes = 'photo' | 'sticker' | 'unknown'
+export type CoreMessageMediaTypes = 'photo' | 'sticker' | 'document' | 'unknown'
 
 export interface CoreMessageMedia {
   type: CoreMessageMediaTypes
@@ -47,6 +47,14 @@ export function parseMediaType(apiMedia: Api.TypeMessageMedia): CoreMessageMedia
   switch (true) {
     case apiMedia instanceof Api.MessageMediaPhoto:
       return 'photo'
+    case apiMedia instanceof Api.MessageMediaDocument:
+      if (apiMedia.document && apiMedia.document.className === 'Document') {
+        const isSticker = apiMedia.document.attributes.find((attr: any) => attr.className === 'DocumentAttributeSticker')
+        if (isSticker) {
+          return 'sticker'
+        }
+      }
+      return 'document'
     default:
       return 'unknown'
   }
