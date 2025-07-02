@@ -66,63 +66,60 @@ export function createMediaResolver(ctx: CoreContext): MessageResolver {
   }
 
   return {
-    run: async (opts: MessageResolverOpts) => {
+    async* stream(opts: MessageResolverOpts) {
       logger.verbose('Executing media resolver')
 
-      const resolvedMessages = await Promise.all(
-        opts.messages.map(async (message) => {
-          if (!message.media || message.media.length === 0)
-            return message
+      for (const message of opts.messages) {
+        if (!message.media || message.media.length === 0) {
+          yield message
+          continue
+        }
 
-          const fetchedMedia = await Promise.all(
-            message.media.map(async (media) => {
-              logger.withFields({ media }).debug('Media')
+        const fetchedMedia = []
+        for (const media of message.media) {
+          logger.withFields({ media }).debug('Media')
 
-              const userMediaPath = join(await useUserMediaPath(), message.chatId.toString())
-              if (!existsSync(userMediaPath)) {
-                mkdirSync(userMediaPath, { recursive: true })
-              }
+          const userMediaPath = join(await useUserMediaPath(), message.chatId.toString())
+          if (!existsSync(userMediaPath)) {
+            mkdirSync(userMediaPath, { recursive: true })
+          }
 
-              if (media.type === 'sticker') {
-                const sticker = await findStickerByFileId((media.apiMedia as any).document.id)
-                if (sticker?.unwrap()) {
-                  return {
-                    ...media,
-                    base64: sticker.unwrap().sticker_bytes?.toString('base64'),
-                  } satisfies CoreMessageMedia
-                }
-              }
-
-              const mediaFetched = await ctx.getClient().downloadMedia(media.apiMedia as Api.TypeMessageMedia)
-
-              const mediaPath = join(userMediaPath, message.platformMessageId)
-              logger.withFields({ mediaPath }).verbose('Media path')
-              if (mediaFetched instanceof Buffer) {
-                // write file to disk async
-                void writeFile(mediaPath, mediaFetched)
-              }
-
-              const byte = mediaFetched instanceof Buffer ? mediaFetched : undefined
-
+          if (media.type === 'sticker') {
+            const sticker = await findStickerByFileId((media.apiMedia as any).document.id)
+            if (sticker?.unwrap()) {
               return {
-                apiMedia: media.apiMedia,
-                base64: (await resolveMedia(mediaFetched)).orUndefined(),
-                byte,
-                type: media.type,
-                messageUUID: media.messageUUID,
-                path: mediaPath,
+                ...media,
+                base64: sticker.unwrap().sticker_bytes?.toString('base64'),
               } satisfies CoreMessageMedia
-            }),
-          )
+            }
+          }
 
-          return {
-            ...message,
-            media: fetchedMedia,
-          } satisfies CoreMessage
-        }),
-      )
+          const mediaFetched = await ctx.getClient().downloadMedia(media.apiMedia as Api.TypeMessageMedia)
 
-      return Ok(resolvedMessages)
+          const mediaPath = join(userMediaPath, message.platformMessageId)
+          logger.withFields({ mediaPath }).verbose('Media path')
+          if (mediaFetched instanceof Buffer) {
+            // write file to disk async
+            void writeFile(mediaPath, mediaFetched)
+          }
+
+          const byte = mediaFetched instanceof Buffer ? mediaFetched : undefined
+
+          fetchedMedia.push({
+            apiMedia: media.apiMedia,
+            base64: (await resolveMedia(mediaFetched)).orUndefined(),
+            byte,
+            type: media.type,
+            messageUUID: media.messageUUID,
+            path: mediaPath,
+          } satisfies CoreMessageMedia)
+        }
+
+        yield {
+          ...message,
+          media: fetchedMedia,
+        } satisfies CoreMessage
+      }
     },
   }
 }
