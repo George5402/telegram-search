@@ -27,9 +27,7 @@ export function createJiebaResolver(): MessageResolver {
       if (opts.messages.length === 0)
         return Err('No messages')
 
-      const messages: CoreMessage[] = opts.messages.filter(
-        message => message.content && message.jiebaTokens.length === 0,
-      )
+      const messages: CoreMessage[] = opts.messages
 
       if (messages.length === 0)
         return Err('No messages to parse')
