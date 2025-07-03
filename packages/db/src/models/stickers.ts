@@ -43,9 +43,10 @@ export async function recordSticker(sticker: CoreMessageMedia & { sticker_id: st
       .values({
         platform: 'telegram',
         file_id: sticker.sticker_id,
-        sticker_bytes: sticker.base64 ? Buffer.from(sticker.base64, 'base64') : null,
+        sticker_bytes: sticker.byte ? Buffer.from(sticker.byte) : null,
         sticker_path: sticker.path,
         description: '',
+
         name: '',
         emoji: sticker.emoji || '',
         label: '',
