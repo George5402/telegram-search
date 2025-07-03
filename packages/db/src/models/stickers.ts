@@ -1,6 +1,7 @@
-// https://github.com/moeru-ai/airi/blob/main/services/telegram-bot/src/models/stickers.ts
-
 import type { CoreMessageMedia } from '../../../core/src'
+
+// https://github.com/moeru-ai/airi/blob/main/services/telegram-bot/src/models/stickers.ts
+import { Buffer } from 'node:buffer'
 
 import { Ok } from '@tg-search/common/utils/monad'
 import { desc, eq } from 'drizzle-orm'
@@ -44,7 +45,7 @@ export async function recordSticker(sticker: CoreMessageMedia & { sticker_id: st
         file_id: sticker.sticker_id,
         sticker_bytes: sticker.base64 ? Buffer.from(sticker.base64, 'base64') : null,
         sticker_path: sticker.path,
-        description: '',  
+        description: '',
         name: '',
         emoji: sticker.emoji || '',
         label: '',
