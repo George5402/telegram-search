@@ -13,6 +13,7 @@ import { join } from 'node:path'
 import { useLogger } from '@tg-search/common'
 import { getMediaPath, useConfig } from '@tg-search/common/node'
 import { Err, Ok } from '@tg-search/common/utils/monad'
+import { findStickerByFileId } from '@tg-search/db'
 
 type UnhandledMediaType = string | Buffer | ArrayBuffer | { type: 'Buffer', data: any } | undefined
 type MediaBase64 = string
@@ -80,6 +81,16 @@ export function createMediaResolver(ctx: CoreContext): MessageResolver {
               const userMediaPath = join(await useUserMediaPath(), message.chatId.toString())
               if (!existsSync(userMediaPath)) {
                 mkdirSync(userMediaPath, { recursive: true })
+              }
+
+              if (media.type === 'sticker') {
+                const sticker = await findStickerByFileId((media.apiMedia as any).document.id)
+                if (sticker?.unwrap()) {
+                  return {
+                    ...media,
+                    base64: sticker.unwrap().sticker_bytes?.toString('base64'),
+                  } satisfies CoreMessageMedia
+                }
               }
 
               const mediaFetched = await ctx.getClient().downloadMedia(media.apiMedia as Api.TypeMessageMedia)

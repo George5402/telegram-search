@@ -10,7 +10,7 @@ export const stickersTable = pgTable('stickers', {
   name: text().notNull().default(''),
   emoji: text().notNull().default(''),
   label: text().notNull().default(''),
-  file_id: text().notNull().default(''),
+  file_id: text().notNull().unique(),
   sticker_bytes: bytea(),
   sticker_path: text().notNull().default(''),
   description: text().notNull().default(''),

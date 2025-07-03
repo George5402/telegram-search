@@ -1,5 +1,7 @@
 // https://github.com/moeru-ai/airi/blob/main/services/telegram-bot/src/models/stickers.ts
 
+import type { CoreMessageMedia } from '../../../core/src'
+
 import { Ok } from '@tg-search/common/utils/monad'
 import { desc, eq } from 'drizzle-orm'
 
@@ -31,21 +33,28 @@ export async function findStickerByFileId(fileId: string) {
   return Ok(sticker[0])
 }
 
-export async function recordSticker(stickerBase64: string, fileId: string, filePath: string, description: string, name: string, emoji: string, label: string) {
-  return withDb(async db => db
-    .insert(stickersTable)
-    .values({
-      platform: 'telegram',
-      file_id: fileId,
-      image_base64: stickerBase64,
-      image_path: filePath,
-      description,
-      name,
-      emoji,
-      label,
-    })
-    .returning(),
-  )
+export async function recordSticker(sticker: CoreMessageMedia & { sticker_id: string, emoji?: string }) {
+  // 如果file_id已经存在，则跳过插入插入
+  const existingSticker = await findStickerByFileId(sticker.sticker_id)
+  if (existingSticker == null) {
+    return withDb(async db => db
+      .insert(stickersTable)
+      .values({
+        platform: 'telegram',
+        file_id: sticker.sticker_id,
+        sticker_bytes: sticker.base64 ? Buffer.from(sticker.base64, 'base64') : null,
+        sticker_path: sticker.path,
+        description: '',  
+        name: '',
+        emoji: sticker.emoji || '',
+        label: '',
+      })
+      .returning(),
+    )
+  }
+}
+export async function recordStickers(stickers: (CoreMessageMedia & { sticker_id: string })[]) {
+  return Promise.all(stickers.map(sticker => recordSticker(sticker)))
 }
 
 export async function listRecentSentStickers() {

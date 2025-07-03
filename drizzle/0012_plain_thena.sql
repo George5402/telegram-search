@@ -1,0 +1,1 @@
+ALTER TABLE "stickers" ADD CONSTRAINT "stickers_file_id_unique" UNIQUE("file_id");

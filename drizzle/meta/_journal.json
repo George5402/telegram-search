@@ -85,6 +85,13 @@
       "when": 1751284585048,
       "tag": "0011_perpetual_chat",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1751542542887,
+      "tag": "0012_plain_thena",
+      "breakpoints": true
     }
   ]
 }
