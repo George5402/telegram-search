@@ -1,4 +1,3 @@
-import type { Result } from '@tg-search/common/utils/monad'
 import type { Api } from 'telegram'
 
 import type { MessageResolver, MessageResolverOpts } from '.'
