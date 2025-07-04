@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
-    "@iconify-json/lucide": "^1.2.54",
+    "@iconify-json/lucide": "^1.2.55",
     "@iconify/vue": "^5.0.0",
     "@tanstack/vue-query": "^5.81.5",
     "@tanstack/vue-table": "^8.21.3",
@@ -27,7 +27,7 @@
     "reka-ui": "^2.3.2",
     "uuid": "^11.1.0",
     "vue": "^3.5.17",
-    "vue-i18n": "^11.1.8",
+    "vue-i18n": "^11.1.9",
     "vue-router": "^4.5.1",
     "vue-sonner": "^2.0.1"
   },

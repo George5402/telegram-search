@@ -7,14 +7,14 @@ settings:
 catalogs:
   default:
     '@xsai-ext/providers-cloud':
-      specifier: ^0.3.0-beta.6
-      version: 0.3.0-beta.6
+      specifier: ^0.3.0-beta.7
+      version: 0.3.0-beta.7
     '@xsai-ext/providers-local':
-      specifier: ^0.3.0-beta.6
-      version: 0.3.0-beta.6
+      specifier: ^0.3.0-beta.7
+      version: 0.3.0-beta.7
     '@xsai/embed':
-      specifier: ^0.3.0-beta.6
-      version: 0.3.0-beta.6
+      specifier: ^0.3.0-beta.7
+      version: 0.3.0-beta.7
 
 patchedDependencies:
   electron-vite:
@@ -84,10 +84,10 @@ importers:
     dependencies:
       '@electron-toolkit/preload':
         specifier: ^3.0.2
-        version: 3.0.2(electron@37.1.0)
+        version: 3.0.2(electron@37.2.0)
       '@electron-toolkit/utils':
         specifier: ^4.0.0
-        version: 4.0.0(electron@37.1.0)
+        version: 4.0.0(electron@37.2.0)
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
@@ -143,8 +143,8 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
       vue-i18n:
-        specifier: ^11.1.8
-        version: 11.1.8(vue@3.5.17(typescript@5.8.3))
+        specifier: ^11.1.9
+        version: 11.1.9(vue@3.5.17(typescript@5.8.3))
       vue-router:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.17(typescript@5.8.3))
@@ -156,8 +156,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1(@types/node@24.0.10)
       '@iconify-json/lucide':
-        specifier: ^1.2.54
-        version: 1.2.54
+        specifier: ^1.2.55
+        version: 1.2.55
       '@rollup/plugin-alias':
         specifier: ^5.1.1
         version: 5.1.1(rollup@4.35.0)
@@ -171,8 +171,8 @@ importers:
         specifier: ^3.0.0-beta.15
         version: 3.0.0-beta.15(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))
       electron:
-        specifier: ^37.1.0
-        version: 37.1.0
+        specifier: ^37.2.0
+        version: 37.2.0
       electron-builder:
         specifier: ^26.0.12
         version: 26.0.12(electron-builder-squirrel-windows@25.1.8)
@@ -210,8 +210,8 @@ importers:
         specifier: ^0.8.2
         version: 0.8.2
       '@iconify-json/lucide':
-        specifier: ^1.2.54
-        version: 1.2.54
+        specifier: ^1.2.55
+        version: 1.2.55
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.17(typescript@5.8.3))
@@ -255,8 +255,8 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
       vue-i18n:
-        specifier: ^11.1.8
-        version: 11.1.8(vue@3.5.17(typescript@5.8.3))
+        specifier: ^11.1.9
+        version: 11.1.9(vue@3.5.17(typescript@5.8.3))
       vue-router:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.17(typescript@5.8.3))
@@ -313,8 +313,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/db
       crossws:
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.4.1
+        version: 0.4.1
       es-toolkit:
         specifier: ^1.39.6
         version: 1.39.6
@@ -417,13 +417,13 @@ importers:
         version: link:../db
       '@xsai-ext/providers-cloud':
         specifier: 'catalog:'
-        version: 0.3.0-beta.6
+        version: 0.3.0-beta.7
       '@xsai-ext/providers-local':
         specifier: 'catalog:'
-        version: 0.3.0-beta.6
+        version: 0.3.0-beta.7
       '@xsai/embed':
         specifier: 'catalog:'
-        version: 0.3.0-beta.6
+        version: 0.3.0-beta.7
       big-integer:
         specifier: ^1.6.52
         version: 1.6.52
@@ -477,8 +477,8 @@ importers:
         specifier: ^0.8.2
         version: 0.8.2
       '@iconify-json/lucide':
-        specifier: ^1.2.54
-        version: 1.2.54
+        specifier: ^1.2.55
+        version: 1.2.55
       '@iconify/vue':
         specifier: ^5.0.0
         version: 5.0.0(vue@3.5.17(typescript@5.8.3))
@@ -519,8 +519,8 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
       vue-i18n:
-        specifier: ^11.1.8
-        version: 11.1.8(vue@3.5.17(typescript@5.8.3))
+        specifier: ^11.1.9
+        version: 11.1.9(vue@3.5.17(typescript@5.8.3))
       vue-router:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.17(typescript@5.8.3))
@@ -1318,8 +1318,8 @@ packages:
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify-json/lucide@1.2.54':
-    resolution: {integrity: sha512-sUHvGWE0WI+XVew//03Y1jw7AFRv57X1BFxrLBdjwt9xccr4Y2JartcWXM/Zeinxrr3ZgBt0n16WkeN/fx9QAQ==}
+  '@iconify-json/lucide@1.2.55':
+    resolution: {integrity: sha512-JXEV8emCxVZpdfV7d4X+nhn3cp0HU06apijGoxOHpR9CQB2jERqUHpXR6g1p0tEh2IZk84QJBCujG0Ei8XI1Dg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1338,16 +1338,16 @@ packages:
   '@internationalized/number@3.6.0':
     resolution: {integrity: sha512-PtrRcJVy7nw++wn4W2OuePQQfTqDzfusSuY1QTtui4wa7r+rGVtR75pO8CyKvHvzyQYi3Q1uO5sY0AsB4e65Bw==}
 
-  '@intlify/core-base@11.1.8':
-    resolution: {integrity: sha512-BAdeGNapg9HL55k2QJPisa6y3FGnIqVK3Yjub2iUEuS88Jf4AY5hD8wm42FW6lEda921S8scWuKkmb6GUWKlqg==}
+  '@intlify/core-base@11.1.9':
+    resolution: {integrity: sha512-Lrdi4wp3XnGhWmB/mMD/XtfGUw1Jt+PGpZI/M63X1ZqhTDjNHRVCs/i8vv8U1cwaj1A9fb0bkCQHLSL0SK+pIQ==}
     engines: {node: '>= 16'}
 
-  '@intlify/message-compiler@11.1.8':
-    resolution: {integrity: sha512-4YCeg7L2kt89t6nKSSFACAnTBnBMXu0IfG49+pac2VWkWJ7h9AQcsOD3iCptMGuoEj7hcaoNA4F+K/qA7bJxZw==}
+  '@intlify/message-compiler@11.1.9':
+    resolution: {integrity: sha512-84SNs3Ikjg0rD1bOuchzb3iK1vR2/8nxrkyccIl5DjFTeMzE/Fxv6X+A7RN5ZXjEWelc1p5D4kHA6HEOhlKL5Q==}
     engines: {node: '>= 16'}
 
-  '@intlify/shared@11.1.8':
-    resolution: {integrity: sha512-Fpo7YgkT8jwOuSOwOQXrMwqdljEqdfSYdIFkGkpRi80xVCAXpc6MTzuP2pkuQVDXU9MPNC05TWrETzCr+zjuRA==}
+  '@intlify/shared@11.1.9':
+    resolution: {integrity: sha512-H/83xgU1l8ox+qG305p6ucmoy93qyjIPnvxGWRA7YdOoHe1tIiW9IlEu4lTdsOR7cfP1ecrwyflQSqXdXBacXA==}
     engines: {node: '>= 16'}
 
   '@isaacs/cliui@8.0.2':
@@ -2528,20 +2528,20 @@ packages:
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
 
-  '@xsai-ext/providers-cloud@0.3.0-beta.6':
-    resolution: {integrity: sha512-uBzaRInxYOZYXIC3ErUtdWpZ/wlQ8541orhHUibLbnlumuNvTh6ABloOTQVqdQHzEz20Lt2p2uJSrxAjyQB9HA==}
+  '@xsai-ext/providers-cloud@0.3.0-beta.7':
+    resolution: {integrity: sha512-GTzO23w3T/fXr5hIVIXSb6NTGuu2D0PYeagSIA9kNx0qouXGlSXGfPwUMVeGnm4Xe0lZ5R3sC1jV2p8HGU5rsQ==}
 
-  '@xsai-ext/providers-local@0.3.0-beta.6':
-    resolution: {integrity: sha512-WR/0ap7k6xqziuaVO1GJkTqYVHChqEycV9oqqGV5xkU8P6H7rwXfff9QtPxhYk0+9xMA6yYTIf1Pbg2dJhwp+Q==}
+  '@xsai-ext/providers-local@0.3.0-beta.7':
+    resolution: {integrity: sha512-zug4nD1sag4HSVT7h/jZZi9K4uY9WAZ/yGgC/GWoqiOl10YuU46Ky6FoWTfxaGYoZJTEHf4Epft6/5f7GysrjA==}
 
-  '@xsai-ext/shared-providers@0.3.0-beta.6':
-    resolution: {integrity: sha512-ax/Wcrh+RUl4XYSpebpCg7wvyQD50p0wTR2MR2bwa0AidlmQEujN2xAJySbZY1hjh2OF7o39IPhgYNA6PKShjg==}
+  '@xsai-ext/shared-providers@0.3.0-beta.7':
+    resolution: {integrity: sha512-zcI7ZPe78XhdpGclk4f2yKHOxP//NzwQfXPkPPURf0qCU3MMmrE8dDjVgcpkmxP5/V8tgl08BGqviFRLSiAtCw==}
 
-  '@xsai/embed@0.3.0-beta.6':
-    resolution: {integrity: sha512-1Hj1aMoYfM62udQP4ycPV6kSsoLeUPDhcgHo+NA/qFdZsa4Q6keeF7K1DxQzfEAXZzFHjlwv4XErdTTwgbZMbQ==}
+  '@xsai/embed@0.3.0-beta.7':
+    resolution: {integrity: sha512-gKYmnhWnb4DLNOD+TvIlbv8IExfpkoAi0FyRJVO79fpQJzrJpyHaEjtu3/ZgT1tv9HpjzPNIJxItwNxdvvbvAA==}
 
-  '@xsai/shared@0.3.0-beta.6':
-    resolution: {integrity: sha512-EeqkD4+ijKKbxr9Jy9kRnJOcPBErWL8TK2wOdxwhVQuh7VbrYQwaheGjOz9g5OWwM6A0vCje/+TyHz+tURhhqw==}
+  '@xsai/shared@0.3.0-beta.7':
+    resolution: {integrity: sha512-V2zLH7NKAzp5dT+4fxhed+05svN5vtyxvuLcY/E+K/A+XrAHQW1epRuqXBHwXWcjGoSVGWbhHYe8MzW0PT1t6Q==}
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -3032,6 +3032,14 @@ packages:
   crossws@0.3.5:
     resolution: {integrity: sha512-ojKiDvcmByhwa8YYqbQI/hg7MEU0NC03+pSdEq4ZUnZR9xXpwk7E43SMNGkn+JxJGPFtNvQ48+vV2p+P1ml5PA==}
 
+  crossws@0.4.1:
+    resolution: {integrity: sha512-E7WKBcHVhAVrY6JYD5kteNqVq1GSZxqGrdSiwXR9at+XHi43HJoCQKXcCczR5LBnBquFZPsB3o7HklulKoBU5w==}
+    peerDependencies:
+      srvx: '>=0.7.1'
+    peerDependenciesMeta:
+      srvx:
+        optional: true
+
   css-tree@3.1.0:
     resolution: {integrity: sha512-0eW44TGN5SQXU1mWSkKwFstI/22X2bG1nYzZTYMAWjylYURhse752YgbE4Cx46AC+bAvI+/dYTPRk1LqSUnu6w==}
     engines: {node: ^10 || ^12.20.0 || ^14.13.0 || >=15.0.0}
@@ -3335,8 +3343,8 @@ packages:
       '@swc/core':
         optional: true
 
-  electron@37.1.0:
-    resolution: {integrity: sha512-Fcr3yfAw4oU392waVZSlrFUQx4P+h/k31+PRgkBY9tFx9E/zxzdPQQj0achZlG1HRDusw3ooQB+OXb9PvufdzA==}
+  electron@37.2.0:
+    resolution: {integrity: sha512-dE6+qeg6SBUVd5d8CD2+GH82kh+gF1v40+hs+U+UOno681NMSGmBtgqwldQRpbvtnQDD7V2M9Cpfr3+Abw7aBg==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -5985,8 +5993,8 @@ packages:
     peerDependencies:
       vue: ^3.4.37
 
-  vue-i18n@11.1.8:
-    resolution: {integrity: sha512-2JHUseyUrjlguX2N72SAKZ4UBDZ2lo22gL2SMQ6jWJh98RB59nUIQNPE9xKKkSgK5cflj9un8SAwfjYg/PHMxw==}
+  vue-i18n@11.1.9:
+    resolution: {integrity: sha512-N9ZTsXdRmX38AwS9F6Rh93RtPkvZTkSy/zNv63FTIwZCUbLwwrpqlKz9YQuzFLdlvRdZTnWAUE5jMxr8exdl7g==}
     engines: {node: '>= 16'}
     peerDependencies:
       vue: ^3.0.0
@@ -6503,17 +6511,17 @@ snapshots:
 
   '@electric-sql/pglite@0.3.4': {}
 
-  '@electron-toolkit/preload@3.0.2(electron@37.1.0)':
+  '@electron-toolkit/preload@3.0.2(electron@37.2.0)':
     dependencies:
-      electron: 37.1.0
+      electron: 37.2.0
 
   '@electron-toolkit/tsconfig@1.0.1(@types/node@24.0.10)':
     dependencies:
       '@types/node': 24.0.10
 
-  '@electron-toolkit/utils@4.0.0(electron@37.1.0)':
+  '@electron-toolkit/utils@4.0.0(electron@37.2.0)':
     dependencies:
-      electron: 37.1.0
+      electron: 37.2.0
 
   '@electron/asar@3.2.18':
     dependencies:
@@ -6934,7 +6942,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.2': {}
 
-  '@iconify-json/lucide@1.2.54':
+  '@iconify-json/lucide@1.2.55':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -6966,17 +6974,17 @@ snapshots:
     dependencies:
       '@swc/helpers': 0.5.15
 
-  '@intlify/core-base@11.1.8':
+  '@intlify/core-base@11.1.9':
     dependencies:
-      '@intlify/message-compiler': 11.1.8
-      '@intlify/shared': 11.1.8
+      '@intlify/message-compiler': 11.1.9
+      '@intlify/shared': 11.1.9
 
-  '@intlify/message-compiler@11.1.8':
+  '@intlify/message-compiler@11.1.9':
     dependencies:
-      '@intlify/shared': 11.1.8
+      '@intlify/shared': 11.1.9
       source-map-js: 1.2.1
 
-  '@intlify/shared@11.1.8': {}
+  '@intlify/shared@11.1.9': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -8329,25 +8337,25 @@ snapshots:
 
   '@xmldom/xmldom@0.8.10': {}
 
-  '@xsai-ext/providers-cloud@0.3.0-beta.6':
+  '@xsai-ext/providers-cloud@0.3.0-beta.7':
     dependencies:
-      '@xsai-ext/shared-providers': 0.3.0-beta.6
-      '@xsai/shared': 0.3.0-beta.6
+      '@xsai-ext/shared-providers': 0.3.0-beta.7
+      '@xsai/shared': 0.3.0-beta.7
 
-  '@xsai-ext/providers-local@0.3.0-beta.6':
+  '@xsai-ext/providers-local@0.3.0-beta.7':
     dependencies:
-      '@xsai-ext/shared-providers': 0.3.0-beta.6
-      '@xsai/shared': 0.3.0-beta.6
+      '@xsai-ext/shared-providers': 0.3.0-beta.7
+      '@xsai/shared': 0.3.0-beta.7
 
-  '@xsai-ext/shared-providers@0.3.0-beta.6':
+  '@xsai-ext/shared-providers@0.3.0-beta.7':
     dependencies:
-      '@xsai/shared': 0.3.0-beta.6
+      '@xsai/shared': 0.3.0-beta.7
 
-  '@xsai/embed@0.3.0-beta.6':
+  '@xsai/embed@0.3.0-beta.7':
     dependencies:
-      '@xsai/shared': 0.3.0-beta.6
+      '@xsai/shared': 0.3.0-beta.7
 
-  '@xsai/shared@0.3.0-beta.6': {}
+  '@xsai/shared@0.3.0-beta.7': {}
 
   abbrev@1.1.1: {}
 
@@ -8981,6 +8989,8 @@ snapshots:
     dependencies:
       uncrypto: 0.1.3
 
+  crossws@0.4.1: {}
+
   css-tree@3.1.0:
     dependencies:
       mdn-data: 2.12.2
@@ -9256,7 +9266,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@37.1.0:
+  electron@37.2.0:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 22.15.32
@@ -12398,10 +12408,10 @@ snapshots:
     dependencies:
       vue: 3.5.17(typescript@5.8.3)
 
-  vue-i18n@11.1.8(vue@3.5.17(typescript@5.8.3)):
+  vue-i18n@11.1.9(vue@3.5.17(typescript@5.8.3)):
     dependencies:
-      '@intlify/core-base': 11.1.8
-      '@intlify/shared': 11.1.8
+      '@intlify/core-base': 11.1.9
+      '@intlify/shared': 11.1.9
       '@vue/devtools-api': 6.6.4
       vue: 3.5.17(typescript@5.8.3)
 
