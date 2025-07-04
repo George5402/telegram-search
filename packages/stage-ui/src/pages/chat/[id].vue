@@ -30,14 +30,11 @@ const isGlobalSearch = ref(false)
 const searchDialogRef = ref<InstanceType<typeof SearchDialog> | null>(null)
 const isLoadingMessages = ref(false)
 const messageLimit = ref(50)
-const messageOffset = ref(0)
 
 const { list, containerProps, wrapperProps } = useVirtualList(
   chatMessages,
   {
     itemHeight: () => 80, // Estimated height for message bubble
-
-    // What is this?
     overscan: 40,
   },
 )
@@ -62,30 +59,98 @@ onUnmounted(() => {
 })
 
 const websocketStore = useWebsocketStore()
-
 const messageInput = ref('')
+
+// Improved scroll position management
 const { y } = useScroll(containerProps.ref)
-const lastMessagePosition = ref(0)
+const lastMessageCount = ref(0)
+const topVisibleMessageId = ref<string | null>(null)
+const isLoadingOldMessages = ref(false)
 
-watch(() => chatMessages.value.length, () => {
-  lastMessagePosition.value = containerProps.ref.value?.scrollHeight ?? 0
+// Track the topmost visible message for position preservation
+function updateTopVisibleMessage() {
+  if (list.value.length > 0) {
+    // Get the first visible item in the virtual list
+    const firstVisibleItem = list.value[0]
+    if (firstVisibleItem?.data?.platformMessageId) {
+      topVisibleMessageId.value = firstVisibleItem.data.platformMessageId
+    }
+  }
+}
 
-  nextTick(() => {
-    y.value = (containerProps.ref.value?.scrollHeight ?? 0) - lastMessagePosition.value
-    messageOffset.value += messageLimit.value
-  })
-})
-
-// TODO: useInfiniteScroll?
+// Handle infinite scroll - load older messages when scrolling to top
 watch(y, async () => {
-  if (y.value === 0 && !isLoadingMessages.value) {
+  // Trigger loading when within 100px of top and not already loading
+  if (y.value < 100 && !isLoadingMessages.value && chatMessages.value.length > 0) {
     isLoadingMessages.value = true
-
-    await messageStore.fetchMessagesWithDatabase(id.toString(), { offset: messageOffset.value, limit: messageLimit.value })
+    isLoadingOldMessages.value = true
+    
+    // Record current top visible message
+    updateTopVisibleMessage()
+    
+    await messageStore.fetchMessagesWithDatabase(id.toString(), { 
+      offset: chatMessages.value.length,
+      limit: messageLimit.value 
+    })
 
     isLoadingMessages.value = false
   }
-}, { immediate: true })
+})
+
+// Handle position preservation when new messages are loaded
+watch(() => chatMessages.value.length, async (newCount, oldCount) => {
+  // Only preserve position when loading old messages, not new ones
+  if (isLoadingOldMessages.value && topVisibleMessageId.value && newCount > oldCount) {
+    await nextTick()
+    
+    // Find the index of the previously visible message
+    const targetMessageIndex = chatMessages.value.findIndex(
+      msg => msg.platformMessageId === topVisibleMessageId.value
+    )
+    
+    if (targetMessageIndex >= 0) {
+      // Calculate the scroll position to show this message at roughly the same position
+      const itemHeight = 80 // Should match the itemHeight in useVirtualList
+      const targetScrollTop = Math.max(0, targetMessageIndex * itemHeight - 100)
+      
+      // Use DOM manipulation for more reliable positioning
+      if (containerProps.ref.value) {
+        containerProps.ref.value.scrollTop = targetScrollTop
+      }
+    }
+    
+    isLoadingOldMessages.value = false
+    topVisibleMessageId.value = null
+  } else if (newCount > oldCount && !isLoadingOldMessages.value) {
+    // New messages arrived (likely via websocket) - scroll to bottom if user was near bottom
+    if (y.value > (containerProps.ref.value?.scrollHeight ?? 0) - 1000) {
+      await nextTick()
+      if (containerProps.ref.value) {
+        containerProps.ref.value.scrollTop = containerProps.ref.value.scrollHeight
+      }
+    }
+  }
+  
+  lastMessageCount.value = newCount
+})
+
+// Initial load
+onMounted(async () => {
+  if (chatMessages.value.length === 0) {
+    isLoadingMessages.value = true
+    await messageStore.fetchMessagesWithDatabase(id.toString(), { 
+      offset: 0, 
+      limit: messageLimit.value 
+    })
+    isLoadingMessages.value = false
+    
+    // Scroll to bottom after initial load
+    await nextTick()
+    if (containerProps.ref.value) {
+      containerProps.ref.value.scrollTop = containerProps.ref.value.scrollHeight
+    }
+  }
+})
 
 function sendMessage() {
   if (!messageInput.value.trim())
@@ -124,8 +189,19 @@ const isGlobalSearchOpen = ref(false)
       v-bind="containerProps"
       class="flex-1 overflow-y-auto p-4 space-y-4"
     >
+      <!-- Loading indicator for old messages -->
+      <div 
+        v-if="isLoadingMessages && isLoadingOldMessages" 
+        class="flex justify-center py-4"
+      >
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <div class="i-lucide-loader-2 h-4 w-4 animate-spin" />
+          Loading older messages...
+        </div>
+      </div>
+      
       <div v-bind="wrapperProps">
-        <div v-for="{ data, index } in list" :key="index">
+        <div v-for="{ data, index } in list" :key="data.platformMessageId">
           <MessageBubble :message="data" />
         </div>
       </div>
