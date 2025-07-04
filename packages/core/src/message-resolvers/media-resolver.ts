@@ -1,3 +1,4 @@
+import type { Result } from '@tg-search/common/utils/monad'
 import type { Api } from 'telegram'
 
 import type { MessageResolver, MessageResolverOpts } from '.'
@@ -66,7 +67,6 @@ export function createMediaResolver(ctx: CoreContext): MessageResolver {
                 } satisfies CoreMessageMedia
               }
             }
-
             if (media.type === 'sticker') {
               const sticker = await findStickerByFileId((media.apiMedia as any).document.id)
               if (sticker?.unwrap()) {
